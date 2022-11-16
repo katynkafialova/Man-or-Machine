@@ -11,18 +11,29 @@ const int anPin1 = 0;
 const int anPin2 = 1;
 const int anPin3 = 2;
 
-int triggerPin1 = 13;
+int triggerPin1 = 0;
 long distance1, distance2, distance3;
 
 void setup() {
   Serial.begin(9600);  // sets the serial port to 9600
+
+   // wait for sensors to be ready (as per data sheet)
+  delay(250);
+  
   pinMode(triggerPin1, OUTPUT);
+
 }
 
 void start_sensor(){
   digitalWrite(triggerPin1,HIGH);
   delay(1);
-  digitalWrite(triggerPin1,LOW);
+ digitalWrite(triggerPin1,LOW);
+  
+  // disconnect from the trigger pin to allow
+  // continuous triggering
+  //pinMode(triggerPin1, INPUT);
+  // wait an additional 100msec for the first reading
+  //delay(100);
 }
 
 void read_sensors(){
@@ -47,7 +58,7 @@ void print_all(){
   Serial.print(" ");
   Serial.print(distance2);
   Serial.print("cm");
- Serial.print(" ");
+  Serial.print(" ");
   Serial.print(" ");
   Serial.print("S3");
   Serial.print(" ");
